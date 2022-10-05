@@ -1,0 +1,45 @@
+server:
+  port: 9500
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: book-server
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DB:todo-postgres-db}
+    username: ${POSTGRES_USER:todo-postgres}
+    password: ${POSTGRES_PASSWORD:todo-postgres}
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    defer-datasource-initialization: true
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+### Postgres Docker image
+#docker run --name myPostgresDb -p 5432:5432 -e POSTGRES_USER=book-postgres -e POSTGRES_PASSWORD=book-postgres -e POSTGRES_DB=book-postgres-db -d postgres
+
+################# Swagger ########################
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+######################## Skywalking ##########################
+Dskywalking:
+  agent:
+    service_name: ${SW_AGENT_NAME:todo-server}
+  collector:
+    backend_service: ${SW_AGENT_COLLECTOR_BACKEND_SERVICES:127.0.0.1:11800}
