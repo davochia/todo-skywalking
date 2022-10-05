@@ -3,6 +3,18 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+  tomcat:
+    accesslog:
+      enabled: true
+#################### Logs #######################
+
+logging:
+  level:
+    root: WARN
+    org:
+      apache:
+        tomcat: DEBUG
+        catalina: DEBUG
 
 spring:
   application:
@@ -43,11 +55,3 @@ Dskywalking:
     service_name: ${SW_AGENT_NAME:todo-server}
   collector:
     backend_service: ${SW_AGENT_COLLECTOR_BACKEND_SERVICES:127.0.0.1:11800}
-
-#################### Logs #######################
-
-logging:
-  level:
-    root: "*"
-    com:
-      baeldung: "*"
