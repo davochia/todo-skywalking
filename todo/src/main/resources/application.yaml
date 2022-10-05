@@ -43,3 +43,11 @@ Dskywalking:
     service_name: ${SW_AGENT_NAME:todo-server}
   collector:
     backend_service: ${SW_AGENT_COLLECTOR_BACKEND_SERVICES:127.0.0.1:11800}
+
+#################### Logs #######################
+
+logging:
+  level:
+    root: "*"
+    com:
+      baeldung: "*"
