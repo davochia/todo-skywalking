@@ -17,6 +17,6 @@ This is a simple todo full stack application. It includes the basic CRUD verbs, 
 
 Clone the application from GitHub and cd into the application. Run **_docker-compose up_**. Visit links below;
 
-- Todo server Application: http://localhost:6000/api/todos
-- Swagger UI: http://localhost:6000/swagger-ui/index.html#/
+- Todo server Application: http://localhost:9500/api/todos
+- Swagger UI: http://localhost:9500/swagger-ui/index.html#/
 - Skywalking UI: http://localhost:8088/
