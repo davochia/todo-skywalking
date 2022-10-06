@@ -14,6 +14,21 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SW_AGENT_NAME:todo-server
       - SW_AGENT_COLLECTOR_BACKEND_SERVICES:host.docker.internal:11800
+    depends_on:
+      - PostgreSQL
+    networks:
+      - backend
+
+  # Frontend Service
+  todoAppUI:
+    image: wisekingdavid/todo-app-ui:0.1
+    container_name: todo-ui
+    ports:
+      - "9600:8080"
+    depends_on:
+      - todoApp
+    networks:
+      - frontend
 
   # Database
   PostgreSQL:
@@ -25,11 +40,8 @@ services:
       - POSTGRES_USER=todo-postgres
       - POSTGRES_PASSWORD=todo-postgres
       - POSTGRES_DB=todo-postgres-db
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - backend
 
   # Skywalking
   oap:
@@ -52,6 +64,8 @@ services:
       SW_TELEMETRY: prometheus
     depends_on:
       - todoApp
+    networks:
+      - backend
 
   ui:
     image: apache/skywalking-ui:9.1.0
@@ -64,3 +78,9 @@ services:
       SW_OAP_ADDRESS: http://oap:12800
     depends_on:
       - oap
+    networks:
+      - backend
+
+networks:
+  backend:
+  frontend:

@@ -62,7 +62,7 @@ public class Todo {
     @Operation(summary = "Delete todo from system")
     public ResponseEntity<String> deleteTodo(@PathVariable Integer id) {
         todoService.removeTodo(id);
-        return new ResponseEntity<>("Todo with ID: " + id + " deleted", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Todo with ID: " + id + " deleted", HttpStatus.OK);
     }
 
     @ApiResponses(value = {
